@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Support Portal</title>
-    <link rel="stylesheet" href="./dist/styles.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
   </head>
   <body>
     <aside class="sidebar">
@@ -65,6 +66,9 @@
                 </button>
               </td>
             </tr>
+            <tr class="empty-row">
+              <td colspan="6"></td>
+            </tr>
             <tr>
               <td>Spirit Airlines NK</td>
               <td>March 11, 2024</td>
@@ -80,13 +84,19 @@
                 </button>
               </td>
             </tr>
+            <tr class="empty-row">
+              <td colspan="6"></td>
+            </tr>
             <tr>
               <td>Malaysia Airlines MH</td>
               <td>March 07, 2024</td>
               <td>000072644</td>
               <td><span class="status status-progress">In Progress</span></td>
-              <td class="comment-container">
-                <img src="./assets/icons/comment.svg" alt="comment" />
+              <td>
+                <div class="comment-container">
+                  <img src="./assets/icons/comment.svg" alt="comment" />
+                  <p class="message-count">1</p>
+                </div>
               </td>
               <td>
                 <button class="schedule-call-btn">
@@ -97,13 +107,19 @@
                 </button>
               </td>
             </tr>
+            <tr class="empty-row">
+              <td colspan="6"></td>
+            </tr>
             <tr>
               <td>Air Tahiti Nui TN</td>
               <td>January 10, 2024</td>
               <td>000072602</td>
               <td><span class="status status-closed">Closed</span></td>
-              <td class="comment-container">
-                <img src="./assets/icons/comment.svg" alt="comment" />
+              <td>
+                <div class="comment-container">
+                  <img src="./assets/icons/comment.svg" alt="comment" />
+                  <p class="message-count">4</p>
+                </div>
               </td>
               <td>
                 <button class="schedule-call-btn">
@@ -113,6 +129,9 @@
                   />Schedule a Call
                 </button>
               </td>
+            </tr>
+            <tr class="empty-row">
+              <td colspan="6"></td>
             </tr>
             <tr>
               <td>AirAsia AK</td>
@@ -129,13 +148,19 @@
                 </button>
               </td>
             </tr>
+            <tr class="empty-row">
+              <td colspan="6"></td>
+            </tr>
             <tr>
               <td>Sichuan Airlines 3U</td>
               <td>January 02, 2024</td>
               <td>000072722</td>
               <td><span class="status status-closed">Closed</span></td>
-              <td class="comment-container">
-                <img src="./assets/icons/comment.svg" alt="comment" />
+              <td>
+                <div class="comment-container">
+                  <img src="./assets/icons/comment.svg" alt="comment" />
+                  <p class="message-count">3</p>
+                </div>
               </td>
               <td>
                 <button class="schedule-call-btn">
@@ -148,7 +173,359 @@
             </tr>
           </tbody>
         </table>
+
+        <button class="for-model-2">Click here for model 2</button>
       </div>
+
+      <!-- model -->
     </main>
+    <div id="overlay-model" class="model-container display-none">
+      <div class="form-container">
+        <div class="form-header">
+          <h2 class="form-header-text">New Case</h2>
+          <img
+            class="form-header-close"
+            src="./assets/icons/button.svg"
+            alt="close-btn"
+          />
+        </div>
+
+        <form>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" />
+          </div>
+
+          <div class="form-group">
+            <label for="type">Type</label>
+            <select id="type" name="type">
+              <option>Problem/Issue</option>
+              <option>Request</option>
+              <option>Feedback</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Priority</label>
+            <div class="priority-options">
+              <label class="priority-option low tooltip">
+                <div class="tooltiptext">
+                  <h3>Low Priority</h3>
+                  <br />
+                  <p>
+                    This status is for issues that don't really get in the way
+                    of your work. They might be small annoyances or suggestions
+                    for making the system better. You can report these knowing
+                    they'll be fixed in routine updates, without expecting
+                    immediate action.
+                  </p>
+                </div>
+                <input type="radio" name="priority" value="Low" />
+                <div id="priority-circle-low"></div>
+                <span>Low</span>
+              </label>
+
+              <label class="priority-option medium tooltip">
+                <div class="tooltiptext">
+                  <h3>medium Priority</h3>
+                  <br />
+                  <p>
+                    This status is for issues that don't really get in the way
+                    of your work. They might be small annoyances or suggestions
+                    for making the system better. You can report these knowing
+                    they'll be fixed in routine updates, without expecting
+                    immediate action.
+                  </p>
+                </div>
+                <input type="radio" name="priority" value="Medium" />
+                <div id="priority-circle-medium"></div>
+                <span>Medium</span>
+              </label>
+
+              <label class="priority-option high tooltip">
+                <div class="tooltiptext">
+                  <h3>high Priority</h3>
+                  <br />
+                  <p>
+                    This status is for issues that don't really get in the way
+                    of your work. They might be small annoyances or suggestions
+                    for making the system better. You can report these knowing
+                    they'll be fixed in routine updates, without expecting
+                    immediate action.
+                  </p>
+                </div>
+                <input type="radio" name="priority" value="High" />
+                <div id="priority-circle-high"></div>
+                <span>High</span>
+              </label>
+
+              <label class="priority-option critical tooltip">
+                <div class="tooltiptext">
+                  <h3>critical Priority</h3>
+                  <br />
+                  <p>
+                    This status is for issues that don't really get in the way
+                    of your work. They might be small annoyances or suggestions
+                    for making the system better. You can report these knowing
+                    they'll be fixed in routine updates, without expecting
+                    immediate action.
+                  </p>
+                </div>
+                <input type="radio" name="priority" value="Critical" />
+                <div id="priority-circle-critical"></div>
+                <span>Critical</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea
+              id="description"
+              name="description"
+              rows="4"
+              placeholder="Describe the problem..."
+            ></textarea>
+          </div>
+
+          <!-- <div class="form-group">
+            <label>Do you want to upload an additional file?</label>
+            <div class="file-upload">
+              <p>
+                Drag and drop files here<br />or browse files from your
+                computer.
+              </p>
+              <input
+                type="file"
+                style="display: none"
+                accept=".jpg, .jpeg, .png, .mp4"
+              />
+              <button
+                type="button"
+                onclick="this.previousElementSibling.click()"
+              >
+                Choose file
+              </button>
+              <p class="file-info">JPG, PNG, MP4 up to 20 MB</p>
+            </div>
+            <div id="selected-file" class="selected-file"></div>
+          </div> -->
+
+          <div class="file-upload-container">
+            <div class="upload-area" id="dropZone">
+              <h2>Drag and drop files here</h2>
+              <p>or browse files from your computer.</p>
+              <label class="choose-file-label">
+                Choose file
+                <input
+                  type="file"
+                  id="fileInput"
+                  accept=".jpg, .jpeg, .png, .mp4"
+                  multiple
+                  style="display: none"
+                />
+              </label>
+            </div>
+            <div class="files-preview-container" id="previewContainer"></div>
+          </div>
+
+          <div class="buttons">
+            <button type="submit" class="create">Create</button>
+            <button type="button" class="cancel">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="overlay-model-2" class="model-container display-none model-2">
+      <div class="form-container">
+        <div class="form-header">
+          <h2 class="form-header-text">Subject Name 2 details</h2>
+          <img
+            class="close-btn-model-2"
+            src="./assets/icons/button.svg"
+            alt="close-btn"
+          />
+        </div>
+
+        <div class="subject-details">
+          <div class="subject-detail">
+            <label for="">Status:</label>
+            <span class="status-progress">In progress</span>
+          </div>
+          <div class="subject-detail">
+            <label for="">Created date:</label>
+            <span class="">May 01, 2024</span>
+          </div>
+          <div class="subject-detail">
+            <label for="">Next follow up:</label>
+            <span class="">May 21, 2024</span>
+          </div>
+
+          <div class="subject-detail">
+            <div class="subject-detail-card">
+              <div class="subject-detail-preview">
+                <img src="./assets/images/preview-content.png" alt="" />
+              </div>
+              <span class="content-name">Screenshot567.jpg</span>
+            </div>
+
+            <div class="subject-detail-card">
+              <div class="subject-detail-preview">
+                <img src="./assets/images/preview-content-v.png" alt="" />
+              </div>
+              <span class="content-name">Video.mp4</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="subject-comments">
+          <label for="">comments :</label>
+          <textarea
+            name=""
+            id=""
+            placeholder="Type your comment here..."
+          ></textarea>
+          <div class="button-container">
+            <button class="submit">Submit</button>
+            <button class="cancel">Cancel</button>
+          </div>
+        </div>
+        <div class="subject-comments-list">
+          <div class="comment">
+            <div class="user-dp"><span>DR</span></div>
+            <div class="comment-details">
+              <div class="user-sm-details">
+                <span class="user-name">Dianne Russell</span>
+                <span class="comment-duration">2 days ago </span>
+              </div>
+              <div class="user-comment">
+                <p>
+                  Duis aute irure dolor in reprehenderit in voluptate velit esse
+                  cillum dolore eu fugiat nulla pariatur.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="close-btn-contrainer">
+          <button class="close-btn">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+      const dropZone = document.getElementById("dropZone");
+      const fileInput = document.getElementById("fileInput");
+      const previewContainer = document.getElementById("previewContainer");
+
+      // Prevent default drag behaviors
+      ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
+        dropZone.addEventListener(eventName, preventDefaults, false);
+        document.body.addEventListener(eventName, preventDefaults, false);
+      });
+
+      // Highlight drop zone when dragging over it
+      ["dragenter", "dragover"].forEach((eventName) => {
+        dropZone.addEventListener(eventName, highlight, false);
+      });
+
+      ["dragleave", "drop"].forEach((eventName) => {
+        dropZone.addEventListener(eventName, unhighlight, false);
+      });
+
+      // Handle dropped files
+      dropZone.addEventListener("drop", handleDrop, false);
+      fileInput.addEventListener("change", handleFiles, false);
+
+      function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+      function highlight(e) {
+        dropZone.classList.add("dragover");
+      }
+
+      function unhighlight(e) {
+        dropZone.classList.remove("dragover");
+      }
+
+      function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        handleFiles({ target: { files } });
+      }
+
+      function handleFiles(e) {
+        const files = [...e.target.files];
+        files.forEach(previewFile);
+      }
+
+      function previewFile(file) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+
+        reader.onloadend = function () {
+          const preview = document.createElement("div");
+          preview.className = "preview-item";
+
+          const removeBtn = document.createElement("button");
+          removeBtn.className = "remove-btn";
+          removeBtn.innerHTML = "×";
+          removeBtn.onclick = function () {
+            preview.remove();
+          };
+
+          const fileInfo = document.createElement("div");
+          fileInfo.className = "file-info";
+
+          const fileName = document.createElement("div");
+          fileName.className = "file-name";
+          fileName.textContent = file.name;
+
+          const fileSize = document.createElement("div");
+          fileSize.className = "file-size";
+          fileSize.textContent = formatFileSize(file.size);
+
+          fileInfo.appendChild(fileName);
+          fileInfo.appendChild(fileSize);
+
+          if (file.type.startsWith("image/")) {
+            const img = document.createElement("img");
+            img.src = reader.result;
+            preview.appendChild(img);
+          } else {
+            const fileIcon = document.createElement("div");
+            fileIcon.style.height = "150px";
+            fileIcon.style.background = "#f0f0f0";
+            fileIcon.style.borderRadius = "4px";
+            fileIcon.style.display = "flex";
+            fileIcon.style.alignItems = "center";
+            fileIcon.style.justifyContent = "center";
+            fileIcon.textContent = getFileExtension(file.name).toUpperCase();
+            preview.appendChild(fileIcon);
+          }
+
+          preview.appendChild(removeBtn);
+          preview.appendChild(fileInfo);
+          previewContainer.appendChild(preview);
+        };
+      }
+
+      function formatFileSize(bytes) {
+        if (bytes === 0) return "0 Bytes";
+        const k = 1024;
+        const sizes = ["Bytes", "KB", "MB", "GB"];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + " " + sizes[i];
+      }
+
+      function getFileExtension(filename) {
+        return filename.slice(((filename.lastIndexOf(".") - 1) >>> 0) + 2);
+      }
+    </script>
   </body>
 </html>

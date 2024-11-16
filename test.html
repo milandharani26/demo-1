@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>File Upload Preview</title>
+    <style>
+      .file-upload-container {
+        max-width: 600px;
+        margin: 2rem auto;
+        padding: 2rem;
+        font-family: system-ui, -apple-system, sans-serif;
+      }
+
+      .upload-area {
+        border: 2px dashed #ccc;
+        border-radius: 8px;
+        padding: 2rem;
+        text-align: center;
+        margin-bottom: 2rem;
+        cursor: pointer;
+      }
+
+      .upload-area.dragover {
+        background-color: #f0f0f0;
+        border-color: #999;
+      }
+
+      .upload-area h2 {
+        margin: 0 0 1rem;
+        color: #666;
+        font-weight: normal;
+      }
+
+      .upload-area p {
+        margin: 0;
+        color: #999;
+      }
+
+      .choose-file-label {
+        background: #fff;
+        border: 1px solid #ccc;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 1rem;
+        display: inline-block;
+      }
+
+      .files-preview-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .preview-item {
+        position: relative;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        padding: 0.5rem;
+      }
+
+      .preview-item img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 4px;
+      }
+
+      .preview-item .file-info {
+        margin-top: 0.5rem;
+        font-size: 0.875rem;
+      }
+
+      .preview-item .file-name {
+        font-weight: 500;
+        word-break: break-all;
+      }
+
+      .preview-item .file-size {
+        color: #666;
+      }
+
+      .remove-btn {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: #fff;
+        border: 1px solid #ccc;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+      }
+
+      .remove-btn:hover {
+        background: #f0f0f0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="file-upload-container">
+      <div class="upload-area" id="dropZone">
+        <h2>Drag and drop files here</h2>
+        <p>or browse files from your computer.</p>
+        <label class="choose-file-label">
+          Choose file
+          <input type="file" id="fileInput" multiple style="display: none" />
+        </label>
+      </div>
+      <div class="files-preview-container" id="previewContainer"></div>
+    </div>
+
+    <script>
+      const dropZone = document.getElementById("dropZone");
+      const fileInput = document.getElementById("fileInput");
+      const previewContainer = document.getElementById("previewContainer");
+
+      // Prevent default drag behaviors
+      ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
+        dropZone.addEventListener(eventName, preventDefaults, false);
+        document.body.addEventListener(eventName, preventDefaults, false);
+      });
+
+      // Highlight drop zone when dragging over it
+      ["dragenter", "dragover"].forEach((eventName) => {
+        dropZone.addEventListener(eventName, highlight, false);
+      });
+
+      ["dragleave", "drop"].forEach((eventName) => {
+        dropZone.addEventListener(eventName, unhighlight, false);
+      });
+
+      // Handle dropped files
+      dropZone.addEventListener("drop", handleDrop, false);
+      fileInput.addEventListener("change", handleFiles, false);
+
+      function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+      function highlight(e) {
+        dropZone.classList.add("dragover");
+      }
+
+      function unhighlight(e) {
+        dropZone.classList.remove("dragover");
+      }
+
+      function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        handleFiles({ target: { files } });
+      }
+
+      function handleFiles(e) {
+        const files = [...e.target.files];
+        files.forEach(previewFile);
+      }
+
+      function previewFile(file) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+
+        reader.onloadend = function () {
+          const preview = document.createElement("div");
+          preview.className = "preview-item";
+
+          const removeBtn = document.createElement("button");
+          removeBtn.className = "remove-btn";
+          removeBtn.innerHTML = "×";
+          removeBtn.onclick = function () {
+            preview.remove();
+          };
+
+          const fileInfo = document.createElement("div");
+          fileInfo.className = "file-info";
+
+          const fileName = document.createElement("div");
+          fileName.className = "file-name";
+          fileName.textContent = file.name;
+
+          const fileSize = document.createElement("div");
+          fileSize.className = "file-size";
+          fileSize.textContent = formatFileSize(file.size);
+
+          fileInfo.appendChild(fileName);
+          fileInfo.appendChild(fileSize);
+
+          if (file.type.startsWith("image/")) {
+            const img = document.createElement("img");
+            img.src = reader.result;
+            preview.appendChild(img);
+          } else {
+            const fileIcon = document.createElement("div");
+            fileIcon.style.height = "150px";
+            fileIcon.style.background = "#f0f0f0";
+            fileIcon.style.borderRadius = "4px";
+            fileIcon.style.display = "flex";
+            fileIcon.style.alignItems = "center";
+            fileIcon.style.justifyContent = "center";
+            fileIcon.textContent = getFileExtension(file.name).toUpperCase();
+            preview.appendChild(fileIcon);
+          }
+
+          preview.appendChild(removeBtn);
+          preview.appendChild(fileInfo);
+          previewContainer.appendChild(preview);
+        };
+      }
+
+      function formatFileSize(bytes) {
+        if (bytes === 0) return "0 Bytes";
+        const k = 1024;
+        const sizes = ["Bytes", "KB", "MB", "GB"];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + " " + sizes[i];
+      }
+
+      function getFileExtension(filename) {
+        return filename.slice(((filename.lastIndexOf(".") - 1) >>> 0) + 2);
+      }
+    </script>
+  </body>
+</html>
